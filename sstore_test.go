@@ -17,9 +17,9 @@ func TestCreateFile(t *testing.T) {
 		"ccc":"333",
 	}
 	// create the file
-	if err := sstore.CreateFile(fn, descr, data), err != nil {
+	if err := sstore.CreateFile(the_store); err != nil {
 		t.Error("Error creating the file.")
 	}
 
-
+}
 

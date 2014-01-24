@@ -3,7 +3,7 @@
 package sstore
 
 import (
-	"ioutil"
+	"io/ioutil"
 )
 
 type sStore struct {
@@ -14,11 +14,24 @@ type sStore struct {
 
 // CreateFile creates a file with name, inserts the firstline descriptive text 
 // on the first line, and then the data key:value map of strings.
-func CreateFile(name, descr string, data map[string]string) error {
+func CreateFile(s sStore) error {
 	// set the map 
-	d := []byte(descr+"\n") + []byte(data)
-	err := ioutil.WriteFile(name, d, nil)
+	var d []byte
+	d = append(d, s.Descr...)
+	d = append(d, "\n"...)
+	d = append(d, map2bytes(s.Data)...)
+	err := ioutil.WriteFile(s.Name, d, 1)
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func map2bytes(m map[string]string) []byte {
+	var b []byte
+	for k, v := range m {
+		b = append(b, k+":"+v...)
+		b = append(b, "\n"...)
+	}
+	return b
 }
