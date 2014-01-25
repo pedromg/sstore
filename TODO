@@ -1,0 +1,5 @@
+25-01-2014:
+- values will only accept the first string before the delimiter ":" separation.
+  Example: aaa:000:111 will have key=aaa and value=000. Should be value "000:111"
+
+- invalid keys protection.

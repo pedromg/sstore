@@ -19,13 +19,10 @@ func TestCreateFile(t *testing.T) {
 	the_store.Name = fn
 	the_store.Descr = dsc
 	the_store.Data = data
-	// the_store.Data = map[string]string{
-	// 	"aaa":"111",
-	// 	"bbb":"222",
-	// 	"ccc":"333",
-	// }
+	
 	// create the file
 	err := sstore.CreateFile(the_store);
+	
 	if err != nil {
 		t.Error("Error: TestCreateFile test failed!")
 	} else {
@@ -36,7 +33,10 @@ func TestCreateFile(t *testing.T) {
 
 func TestReadFile(t *testing.T) {
 	var the_store sstore.SStore
-	the_store, err := sstore.ReadFile(fn)
+	var err error
+	
+	the_store, err = sstore.ReadFile(fn)
+	
 	if err!= nil {
 		t.Error("Error: TestReadFile test failed!")
 	} else {
@@ -45,5 +45,26 @@ func TestReadFile(t *testing.T) {
 		} else {
 			t.Error("Error: TestReadFile test conditions failed!")
 		}
+	}
+}
+
+func TestValues( t *testing.T) {
+	var the_store sstore.SStore
+	var err error
+	
+	the_store, err = sstore.ReadFile(fn)
+	if err == nil {
+		if the_store.Data["aaa"] != "111" {
+			t.Error("Value for key aaa differs than expected!")
+		}
+		if the_store.Data["bbb"] != "222" {
+			t.Error("Value for key bbb differs than expected!")
+		}
+		if the_store.Data["ccc"] != "333" {
+			t.Error("Value for key ccc differs than expected!")
+		}
+		//if the_store.Data["ddd"] != nil {
+		//	t.Error("Value for non existant key ddd should be nil!")
+		//}
 	}
 }
