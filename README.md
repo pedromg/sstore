@@ -41,7 +41,7 @@ To __read__ a file the struct is populated by the data, not the first line.
 ```go
 var err error
 my_store, err = sstore.ReadFile("filename")
-my_store["key1"] // will return value1
+my_store.Data["key1"] // will return value1
 ```
 
 ## Test
