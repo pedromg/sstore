@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pedromg/sstore.svg?branch=master)](https://travis-ci.org/pedromg/sstore)
+
 sstore
 ======
 
