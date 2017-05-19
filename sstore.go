@@ -8,23 +8,23 @@ import (
 )
 
 type SStore struct {
-	Name	string
-	Descr	string
-	Data	map[string]string
+	Name  string
+	Descr string
+	Data  map[string]string
 }
 
-// CreateFile creates a file with name, inserts the firstline descriptive text 
+// CreateFile creates a file with name, inserts the firstline descriptive text
 // on the first line, and then the data key:value map of strings.
 func CreateFile(s SStore) error {
-	// set the map 
+	// set the map
 	var d []byte
 
 	d = append(d, s.Descr...)
 	d = append(d, "\n"...)
 	d = append(d, map2bytes(s.Data)...)
-	
+
 	err := ioutil.WriteFile(s.Name, d, 0777)
-	
+
 	if err != nil {
 		return err
 	}
@@ -41,27 +41,27 @@ func map2bytes(m map[string]string) []byte {
 }
 
 func ReadFile(f string) (SStore, error) {
-	var the_store SStore
-	var lines, the_l []string
+	var theStore SStore
+	var lines, liness []string
 	var l int
 
-	the_store.Data = make(map[string]string)
-	the_store.Name = f
-	
-	content, error := ioutil.ReadFile(the_store.Name)
-	
+	theStore.Data = make(map[string]string)
+	theStore.Name = f
+
+	content, error := ioutil.ReadFile(theStore.Name)
+
 	if error != nil {
-		return the_store, error
+		return theStore, error
 	}
-	
+
 	// Populate the sstore.SStore structure.
 	lines = strings.Split(string(content), "\n")
-	the_store.Descr = lines[0]
-	for l = 1; l < len(lines)-1; l+= 1 {
-		the_l = strings.Split(lines[l],":")
-		the_store.Data[the_l[0]] = the_l[1]
+	theStore.Descr = lines[0]
+	for l = 1; l < len(lines)-1; l += 1 {
+		liness = strings.Split(lines[l], ":")
+		theStore.Data[liness[0]] = liness[1]
 	}
-	
+
 	// return
-	return the_store, nil
+	return theStore, nil
 }
